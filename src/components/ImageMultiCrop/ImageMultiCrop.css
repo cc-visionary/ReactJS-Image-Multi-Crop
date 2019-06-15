@@ -1,0 +1,14 @@
+.crop-page {
+	position: relative;
+}
+
+.img-canvas {
+	cursor: crosshair;
+	position: absolute;
+	z-index: 1;
+}
+
+.img {
+	user-select: none;
+	opacity: 1;
+}
