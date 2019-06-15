@@ -1,1 +1,2 @@
-# ReactJS-Image-Multi-Crop
+# ReactJS Image Multi Crop
+![First Step](/misc/example/highlight.png)
