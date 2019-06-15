@@ -6,9 +6,23 @@
 	cursor: crosshair;
 	position: absolute;
 	z-index: 1;
+	border: 5px solid;
 }
 
 .img {
 	user-select: none;
 	opacity: 1;
+}
+
+.crops div {
+	padding: 20px;
+}
+
+.crops p {
+	font-size: 30px;
+	color: #fff;
+}
+
+.crops {
+	background: #444;
 }

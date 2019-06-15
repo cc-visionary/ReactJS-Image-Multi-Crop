@@ -31,7 +31,7 @@ export default class ImageMultiCrop extends React.Component {
     const canvasBound = this.refs.canvas.getBoundingClientRect() // allows us to get the image location x and y on the page
     this.setState({ imageX: canvasBound.x, imageY: canvasBound.y})
   }
-
+s
   mouse_clicked(e) {
     const start_coordsX = e.clientX - this.state.imageX; // cursor_X - image_position_X to get real X position of cursor on image
     const start_coordsY = e.clientY - this.state.imageY; // cursor_Y - image_position_Y to get real Y position of cursor on image
@@ -112,13 +112,9 @@ export default class ImageMultiCrop extends React.Component {
   }
 
   render() {
-    const img_src = this.props.image
-    const img_alt = this.props.alt
-    const img_align = this.props.align ? this.props.align.toLowerCase() : "center"
-
     return (
-      <div className="crop-page" style={{ minHeight: '100%', textAlign: img_align}}>
-        { this.display_crop_length() }
+      <div className="crop-page" style={{ minHeight: '100%', textAlign: this.props.align ? this.props.align.toLowerCase() : "center"}}>
+        { this.props.counter ? this.display_crop_length() : null }
         <button className="undo-button" onClick={ (e) => this.delete_previous(e) } disabled={this.state.end_coords.length < 1} >Undo</button>
         <button className="crop-button" onClick={ (e) => this.crop(e) } disabled={this.state.end_coords.length < 1} >Crop All</button>
         <button className="download-button" onClick={ (e) => this.download(e) } disabled={this.state.end_coords.length < 1} >Download</button>
@@ -131,15 +127,9 @@ export default class ImageMultiCrop extends React.Component {
                     onMouseOver={ (e) => this.mouse_over(e) } 
                     onMouseDown ={ (e) => this.mouse_clicked(e) } 
                     onMouseUp ={ (e) => this.mouse_unclicked(e) } />
-            <img ref="image" className="img" src={img_src} alt={img_alt}/>
-            {/*<div>
-              { this.list_coords() }
-            </div>*/}
+            <img ref="image" className="img" src={ this.props.src} alt={this.props.alt}/>
           </div>
-          <div>
-            Crops:
-            { this.list_images() }
-          </div>
+          { this.props.checker ? <div className="crops"><p>Crops:</p>{ this.list_images() }</div> : null }
         </div>
       </div>
     )
