@@ -12,6 +12,7 @@
 .img {
 	user-select: none;
 	opacity: 1;
+	border: 5px solid;
 }
 
 .crops div {

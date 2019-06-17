@@ -10,6 +10,8 @@ export default class ImageMultiCrop extends React.Component {
       imageWidth: null, // stores image width just in case it may change due to screen resolution (int)
       imageX: null, // stores image location X to subtract it on cursor X in the image to get the true position of cursor in the image (int)
       imageY: null, // stores image location Y to subtract it on cursor Y in the image to get the true position of cursor in the image (int)
+      urls: [], // stores the list of URLs of the images to be downloaded
+      croppedNames: [], // stored the list of file names for the cropped images
       start_coords: [], // stores list of starting coordinates on click (2-dimensional array of int) [x, y]
       end_coords: [], // stores list of end coordinates on un-click (2-dimensional array of int) [x, y]
     }
@@ -89,14 +91,16 @@ s
       canvas.height = height
       
       ctx.drawImage(img, left, top, width, height, 0, 0, width, height);
+      console.log(canvas)
+      this.setState({ urls: [...this.state.urls, canvas.toDataURL().replace("image/png", "image/octet-stream")], croppedNames: [...this.state.croppedNames, canvas.className] }) // put the links of the list of cropped images in an array of images
     }
   }
 
-  download() {
-    for(let i = 0; i < this.state.start_coords.length; i++) {
-      let canvas = document.getElementsByClassName("cropped-"+i)[0]
-      window.open(canvas.toDataURL().replace("image/png", "image/octet-stream"))
-    }
+  download(e) {
+    const ctx = this.refs.canvas.getContext("2d")
+    ctx.clearRect(0, 0, this.state.imageWidth, this.state.imageHeight) // height
+    this.setState({ start_coords: [], end_coords: [] })
+
   }
 
   list_images() {
@@ -135,3 +139,7 @@ s
     )
   }
 }
+
+// Bugs:
+// - can't put the all the urls in this.state.url
+// - can't download and put it in zip file.
